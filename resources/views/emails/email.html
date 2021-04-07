@@ -1,0 +1,128 @@
+<!doctype html>
+<html style="height: 100vh;" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Email Template</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap");
+
+    * {
+      font-family: "Open Sans" !important;
+    }
+
+    @media screen and (max-width: 960px) {
+      .flex:first-of-type {
+        display: block;
+      }
+
+      .flex:first-of-type p {
+        text-align: center;
+      }
+
+      .package-name {
+
+        font-size: 20px;
+      }
+
+      .name {
+        font-size: 18px;
+      }
+
+    }
+  </style>
+</head>
+<body style="margin: 0;
+            padding: 0;
+            height: 100%;
+">
+<header style=" background-color: #044A48;
+            padding: 30px 70px;">
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120.014" height="43.865"
+       viewBox="0 0 120.014 43.865">
+    <defs>
+      <clipPath id="clip-path">
+        <rect id="Rectangle_190" data-name="Rectangle 190" width="31.996" height="43.865"
+              transform="translate(144 61)" fill="#fff" stroke="#707070" stroke-width="1"/>
+      </clipPath>
+    </defs>
+    <g id="Group_137" data-name="Group 137" transform="translate(-898.986 -14.067)">
+      <text id="Alzuhud" transform="translate(980 48)" fill="#fff" font-size="20"
+            font-family="OpenSans-Regular, Open Sans">
+        <tspan x="-38.076" y="0">Alzuhud</tspan>
+      </text>
+      <g id="Mask_Group_10" data-name="Mask Group 10" transform="translate(754.987 -46.933)"
+         clip-path="url(#clip-path)">
+        <image id="zuhud_logo-white" width="47.178" height="53.154" transform="translate(136.259 61)"
+               xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACpCAYAAADJLcSaAAAACXBIWXMAAAsTAAALEwEAmpwYAAAH82lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDUgNzkuMTYzNDk5LCAyMDE4LzA4LzEzLTE2OjQwOjIyICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtbG5zOnN0RXZ0PSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VFdmVudCMiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczpwaG90b3Nob3A9Imh0dHA6Ly9ucy5hZG9iZS5jb20vcGhvdG9zaG9wLzEuMC8iIHhtbG5zOnRpZmY9Imh0dHA6Ly9ucy5hZG9iZS5jb20vdGlmZi8xLjAvIiB4bWxuczpleGlmPSJodHRwOi8vbnMuYWRvYmUuY29tL2V4aWYvMS4wLyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJCNzY3OUQxNTUyMUE4Q0YwQUUzMDdGRTUxRkMwNTQ0NyIgeG1wTU06RG9jdW1lbnRJRD0iYWRvYmU6ZG9jaWQ6cGhvdG9zaG9wOjczNWIwNTc2LTk1OTgtZjM0NC05ODkwLTBjMDQ3NmJlNWYzMiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo1YmFkYjc1Mi0xZDVlLWNhNGMtODBkZS1iY2RhODc2NjQ1ZDkiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKE1hY2ludG9zaCkiIHhtcDpDcmVhdGVEYXRlPSIyMDE4LTA1LTI4VDEzOjQ0OjI5KzAyOjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAxOS0wNy0xN1QwMDozODoyOCswNDozMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAxOS0wNy0xN1QwMDozODoyOCswNDozMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgdGlmZjpPcmllbnRhdGlvbj0iMSIgdGlmZjpYUmVzb2x1dGlvbj0iNzIwMDAwLzEwMDAwIiB0aWZmOllSZXNvbHV0aW9uPSI3MjAwMDAvMTAwMDAiIHRpZmY6UmVzb2x1dGlvblVuaXQ9IjIiIGV4aWY6Q29sb3JTcGFjZT0iNjU1MzUiIGV4aWY6UGl4ZWxYRGltZW5zaW9uPSIxNTAiIGV4aWY6UGl4ZWxZRGltZW5zaW9uPSIxNjkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDplYmIwM2ZhOC1kYTNkLTRmNmYtODhmMS1iODU4NmQ2NzNlMDgiIHN0UmVmOmRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDozNmQzZDBkMC0yYzA4LTA4NDgtYjdhZC1hOWFhMjFlMzRiM2UiLz4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6M2JmOWY2ZGItOWQ1NS00OTg1LTljZTgtZTUwYTg5YTkxMTU2IiBzdEV2dDp3aGVuPSIyMDE4LTA1LTMwVDE0OjI0OjM2KzAyOjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxNyAoTWFjaW50b3NoKSIgc3RFdnQ6Y2hhbmdlZD0iLyIvPiA8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"/>
+      </g>
+    </g>
+  </svg>
+</header>
+<main>
+  <div class="heading" style=" padding: 40px 70px;
+            background-color: #EEEEEE;">
+    <span class="package-name" style="font-size: 35px; margin-bottom: 16px;">Reset Password</span><br>
+    <span class="name" style=" font-size: 30px;">-----name-------</span>
+  </div>
+  <div class="main-content" style="padding: 40px 70px; font-size: 14px;">
+
+  </div>
+</main>
+<footer style="background-color: #F3F7F3; padding: 40px 70px;">
+  <div class="flex" style="display: flex;  justify-content: space-between;">
+    <p class="grey-text" style="color: #707070;"><a style="color: #707070;
+            text-decoration: none; margin: 0 10px;" href="mailto:info@alzuhud.com">info@alzuhud.com</a></p>
+    <p class="grey-text" style="color: #707070;"><a style="color: #707070;
+            text-decoration: none; margin: 0 10px;" href="tel:+966122349474">+966122349474</a></p>
+    <p class="grey-text" style="color: #707070;"><a style="color: #707070;
+            text-decoration: none; margin: 0 10px;" href="tel:+966554175500">+966554175500</a></p>
+    <p class="grey-text" style="color: #707070;">Tulsi Marg Boulevard, Saudi Arabia</p>
+  </div>
+  <div class="flex" style="justify-content: center; ">
+    <p class="grey-text" style="color: #707070;">
+      <a style="color: #707070;
+            text-decoration: none; margin: 0 10px;">
+        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+          <path fill="#000000"
+                d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/>
+        </svg>
+      </a>
+    </p>
+    <p class="grey-text" style="color: #707070;">
+      <a style="color: #707070;
+            text-decoration: none; margin: 0 10px;">
+        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+          <path fill="#000000"
+                d="M17,2V2H17V6H15C14.31,6 14,6.81 14,7.5V10H14L17,10V14H14V22H10V14H7V10H10V6A4,4 0 0,1 14,2H17Z"/>
+        </svg>
+      </a>
+    </p>
+    <p class="grey-text" style="color: #707070;">
+      <a style="color: #707070;
+            text-decoration: none; margin: 0 10px;">
+        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+          <path fill="#000000"
+                d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z"/>
+        </svg>
+      </a>
+    </p>
+    <p class="grey-text" style="color: #707070;">
+      <a style="color: #707070; margin: 0 10px;
+            text-decoration: none;">
+        <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+          <path fill="#000000"
+                d="M10,15L15.19,12L10,9V15M21.56,7.17C21.69,7.64 21.78,8.27 21.84,9.07C21.91,9.87 21.94,10.56 21.94,11.16L22,12C22,14.19 21.84,15.8 21.56,16.83C21.31,17.73 20.73,18.31 19.83,18.56C19.36,18.69 18.5,18.78 17.18,18.84C15.88,18.91 14.69,18.94 13.59,18.94L12,19C7.81,19 5.2,18.84 4.17,18.56C3.27,18.31 2.69,17.73 2.44,16.83C2.31,16.36 2.22,15.73 2.16,14.93C2.09,14.13 2.06,13.44 2.06,12.84L2,12C2,9.81 2.16,8.2 2.44,7.17C2.69,6.27 3.27,5.69 4.17,5.44C4.64,5.31 5.5,5.22 6.82,5.16C8.12,5.09 9.31,5.06 10.41,5.06L12,5C16.19,5 18.8,5.16 19.83,5.44C20.73,5.69 21.31,6.27 21.56,7.17Z"/>
+        </svg>
+      </a>
+    </p>
+  </div>
+  <hr style="border-color: #BDBDBD; border-width: .2px;">
+  <div style="text-align: center; padding: 20px; font-weight: lighter; font-size: 20px;">
+    Copyright (C) 2019 Alzuhud. All rights Reserved.
+  </div>
+</footer>
+</body>
+</html>

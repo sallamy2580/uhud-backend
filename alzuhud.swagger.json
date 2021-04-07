@@ -1,0 +1,5623 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "alzuhud services",
+    "version": "1.1.0"
+  },
+  "host": "165.22.234.156:8080",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/api/auth/login": {
+      "post": {
+        "operationId": "login",
+        "responses": {
+          "200": {
+            "description": "return token for user from other services",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseAuth"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestLogin"
+            }
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "operationId": "register",
+        "responses": {
+          "200": {
+            "description": "register user",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestRegister"
+            }
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/auth/logout": {
+      "get": {
+        "operationId": "logout",
+        "description": "NOTE: need authorization token",
+        "responses": {
+          "200": {
+            "description": "Successfully logged out",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/auth/refresh": {
+      "get": {
+        "operationId": "refresh",
+        "responses": {
+          "200": {
+            "description": "refresh token",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseAuth"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "description": "if you use this api must use new token before token expired.",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/auth/me": {
+      "get": {
+        "operationId": "getMe",
+        "description": "NOTE: need authorization token",
+        "responses": {
+          "200": {
+            "description": "refresh token",
+            "schema": {
+              "$ref": "#/definitions/UserObjectDefintion"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/socialite/redirect/google": {
+      "get": {
+        "operationId": "googleSocialLogin",
+        "responses": {
+          "200": {
+            "description": "login with google",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/socialite/redirect/twitter": {
+      "get": {
+        "operationId": "twitterSocialLogin",
+        "responses": {
+          "200": {
+            "description": "login with google",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/socialite/redirect/facebook": {
+      "get": {
+        "operationId": "faqcebookSocialLogin",
+        "responses": {
+          "200": {
+            "description": "login with google",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/socialite/redirect/linkdin": {
+      "get": {
+        "operationId": "linkdinSocialLogin",
+        "responses": {
+          "200": {
+            "description": "login with google",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/users/all": {
+      "get": {
+        "operationId": "allUsers",
+        "responses": {
+          "200": {
+            "description": "add new user",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseAllUsers"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "for get specified user info",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "role",
+            "description": "if not set select all rules otherwise(0,1 for super admin - 2 for agent - 5 for user)",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "status",
+            "description": "if not set select all status otherwise(1 active - 2 inactive - 3 removed - 4 banned)",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "search",
+            "description": "for search in `full_name` and `email` and `phone` fields ",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/users/add": {
+      "post": {
+        "operationId": "addUsers",
+        "responses": {
+          "200": {
+            "description": "add new user",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestAddUser"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/users/update": {
+      "post": {
+        "operationId": "updateUsers",
+        "responses": {
+          "200": {
+            "description": "update user",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestUpdateUser"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/users/change-password": {
+      "post": {
+        "operationId": "changeUserPassword",
+        "responses": {
+          "200": {
+            "description": "change user password",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestChangePassword"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/users/delete/{id}": {
+      "get": {
+        "operationId": "deleteUser",
+        "responses": {
+          "200": {
+            "description": "update user",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/users/tickets/all": {
+      "get": {
+        "operationId": "getAllUserTickets",
+        "responses": {
+          "200": {
+            "description": "all user tickets",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseAllTickets"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "status",
+            "description": "if not set select all tickets if set(1 pending - 2 for answered - 3 closed)",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/users/notifications/all": {
+      "get": {
+        "operationId": "allUserNotifications",
+        "responses": {
+          "200": {
+            "description": "user notifications",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseNotifications"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "status",
+            "description": "5 for select deactive - 1 for active - 2 for banned - 3 for removed notifications",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "seen",
+            "description": "1 for select 'seen' 2 for select 'never seen' notifications",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/tickets/all": {
+      "get": {
+        "operationId": "getAllTickets",
+        "responses": {
+          "200": {
+            "description": "all tickets",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseAllTickets"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "for get specified ticket info",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "status",
+            "description": "if not set select all tickets if set(1 pending - 2 for answered - 3 closed)",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/tickets/add": {
+      "post": {
+        "operationId": "addNewTicket",
+        "responses": {
+          "200": {
+            "description": "add new tickets",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestAddTicket"
+            }
+          },
+          {
+            "name": "token",
+            "description": "login token you can get in login api or put this field in header with this format Authorization: Bearer {token}",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/tickets/answer/{ticketId}": {
+      "post": {
+        "operationId": "answerTicket",
+        "responses": {
+          "200": {
+            "description": "answer ticket",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestAnswerTicket"
+            }
+          },
+          {
+            "name": "ticketId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/tickets/close/{ticketId}": {
+      "get": {
+        "operationId": "closeTicket",
+        "responses": {
+          "200": {
+            "description": "close ticket",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ticketId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/tickets/delete/{ticketId}": {
+      "get": {
+        "operationId": "deleteTicket",
+        "responses": {
+          "200": {
+            "description": "close ticket",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ticketId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/tickets/sections/{ticketId}": {
+      "get": {
+        "operationId": "ticketSections",
+        "responses": {
+          "200": {
+            "description": "ticket sections",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseTicketSections"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "ticketId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/guest/contact/add": {
+      "post": {
+        "operationId": "contact",
+        "responses": {
+          "200": {
+            "description": "contact",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestAddContact"
+            }
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/admin/contact/all": {
+      "get": {
+        "operationId": "all contacts",
+        "responses": {
+          "200": {
+            "description": "contacts",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseContacts"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/guest/countries": {
+      "get": {
+        "operationId": "allCountries",
+        "responses": {
+          "200": {
+            "description": "countries",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseCountries"
+            }
+          }
+        },
+        "parameters": [
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/notifications/all": {
+      "get": {
+        "operationId": "allNotifications",
+        "responses": {
+          "200": {
+            "description": "notifications",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseNotifications"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "for get specified notification info",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "status",
+            "description": "5 for select deactive - 1 for active - 2 for banned - 3 for removed notifications",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "seen",
+            "description": "1 for select 'seen' 2 for select 'never seen' notifications",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/packages/all": {
+      "get": {
+        "operationId": "allPackages",
+        "responses": {
+          "200": {
+            "description": "notifications",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponsePackages"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "for get specified package info",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "status",
+            "description": "5 deactive - 1 active - 2 banned - 3 expired - 4 removed",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "creator",
+            "description": "the user id for get user packages",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "start_date",
+            "description": "some packages has start date for use if you fill this param you get all packages >= this time, time format 'yyyy-mm-dd hh:mm:ss' ",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "end_date",
+            "description": "some packages has end date for use if you fill this param you get all packages <= this time, time format 'yyyy-mm-dd hh:mm:ss' ",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "price",
+            "description": "search by package price if you send this param and dont send 'price_op' param system search for all packages with <= this price ",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "price_op",
+            "description": "1 for more than current price '>' | 2 for less than current price '<' | 3 for equal with current price '=' | 4 for more equal '>=' | 5 for less equal '<='",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "role",
+            "description": "1 or 0 or admin for all admins packages | 2 or agent for get all agents packages | 5 or user for get all users packages | otherwise if you send role param and havnt this values we describ before system return all admin and agents packages",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/transactions/all": {
+      "get": {
+        "operationId": "allTransactions",
+        "responses": {
+          "200": {
+            "description": "transactions",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseTransactions"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "for get specified transaction info",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "status",
+            "description": "5 paid - 1 not paid - 2 pending - 3 removed",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "user",
+            "description": "the user id for get user transactions",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "package",
+            "description": "get specified package transactions",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "start_date",
+            "description": "get all transactions after this date",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "end_date",
+            "description": "get all transactions before this date",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "price",
+            "description": "get all transactions less than equal this price",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "price_op",
+            "description": "1 for more than current price '>' | 2 for less than current price '<' | 3 for equal with current price '=' | 4 for more equal '>=' | 5 for less equal '<='",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/hotels/add": {
+      "post": {
+        "operationId": "addNewHotel",
+        "responses": {
+          "200": {
+            "description": "add new hotel",
+            "schema": {
+              "$ref": "#/definitions/ReferenceAllHotelsArray"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestAddHotel"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/hotels/update": {
+      "post": {
+        "operationId": "updateHotel",
+        "responses": {
+          "200": {
+            "description": "hotel updated successfully",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestUpdateHotel"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/hotels/all": {
+      "get": {
+        "operationId": "allHotels",
+        "responses": {
+          "200": {
+            "description": "hotels",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseHotels"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "for get specified hotel info",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "type",
+            "description": "if set all pagination data replace with all of system data about this subject",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "search",
+            "description": "test search you can search in hotel 'name' or 'address' or 'description'",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "creator",
+            "description": "the admin or user created this hotel info",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "accomodation",
+            "description": "1 means one star , you can send 1 or 2 or 3 or 4 or 5 or 6 for search in hotel accomodation",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "price",
+            "description": "get all hotels less than equal with current price",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "price_op",
+            "description": "1 for more than current price '>' | 2 for less than current price '<' | 3 for equal with current price '=' | 4 for more equal '>=' | 5 for less equal '<='",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/hotels/delete/{id}": {
+      "post": {
+        "operationId": "deleteHotel",
+        "responses": {
+          "200": {
+            "description": "current hotel deleted successfully",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "id",
+            "description": "id must exists in hotels table and in ids field",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/hotels/images/{hotelId}": {
+      "get": {
+        "operationId": "allHotelImages",
+        "responses": {
+          "200": {
+            "description": "hotel images",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseHotelImages"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "hotelId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/hotels/rooms/{hotelId}": {
+      "get": {
+        "operationId": "allHotelRooms",
+        "responses": {
+          "200": {
+            "description": "hotel rooms",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseHotelRooms"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "hotelId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/hotels/all-rooms": {
+      "get": {
+        "operationId": "wholeHotelRooms",
+        "responses": {
+          "200": {
+            "description": "all system rooms",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseAllHotelRooms"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "for get specified hotel room info",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "hotel_id",
+            "description": "for get hotel rooms",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "room_type",
+            "description": "1 for one bed and to 6 means 6 bed room",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "search",
+            "description": "search in hotel room 'name' or 'description' or view 'field' or 'extera' field",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/hotels/all-reserves": {
+      "get": {
+        "operationId": "wholeHotelRoomReserves",
+        "responses": {
+          "200": {
+            "description": "all system rooms reserves",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseWholeHotelRoomReserves"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "get specified reserve info",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "hotel_id",
+            "description": "hotel id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "room_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "transaction_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "search",
+            "description": "search in 'description' and 'extera' field with text input ",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "price_op",
+            "description": "1 for more than current price '>' | 2 for less than current price '<' | 3 for equal with current price '=' | 4 for more equal '>=' | 5 for less equal '<='",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/flights/add": {
+      "post": {
+        "operationId": "addFlightInformation",
+        "responses": {
+          "200": {
+            "description": "flight information updated successfully.",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestAddFlightInformation"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/flights/update": {
+      "post": {
+        "operationId": "updateFlight",
+        "responses": {
+          "200": {
+            "description": "flight information updated successfully.",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestUpdateFlightInformation"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/flights/delete/{id}": {
+      "post": {
+        "operationId": "deleteFlight",
+        "responses": {
+          "200": {
+            "description": "current flight deleted successfully",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "id",
+            "description": "id must exists in flights table and in ids field",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/flights/all": {
+      "get": {
+        "operationId": "allFlights",
+        "responses": {
+          "200": {
+            "description": "flights",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseFlights"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "for get specified flight info",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "origin",
+            "description": "origin id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "creator",
+            "description": "the user id created this flight",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "rate",
+            "description": "for search in rates flights",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "origin_name",
+            "description": "origin name",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "destination_name",
+            "description": "destination name",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "destination",
+            "description": "destination id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "search",
+            "description": "this search in flight name and origins name and destinations name",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "price",
+            "description": "search in flights price",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "price_op",
+            "description": "1 for more than current price '>' | 2 for less than current price '<' | 3 for equal with current price '=' | 4 for more equal '>=' | 5 for less equal '<='",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/flights/seats/{flightId}": {
+      "get": {
+        "operationId": "allFlightSeats",
+        "responses": {
+          "200": {
+            "description": "flight seats",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseFlightSeats"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "flightId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/flights/seats/reservs/{flightId}": {
+      "get": {
+        "operationId": "allFlightSeatReserves",
+        "responses": {
+          "200": {
+            "description": "flight seat reserves",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseFlightSeatReserves"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "flightId",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/flights/all-seats": {
+      "get": {
+        "operationId": "wholeSeats",
+        "responses": {
+          "200": {
+            "description": "all system seats",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseWholeSeats"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "flight",
+            "description": "flight id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "seat_number",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "seat_position",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "seat_row",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "seat_code",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/flights/all-reservs": {
+      "get": {
+        "operationId": "wholeReserves",
+        "responses": {
+          "200": {
+            "description": "all system reserves",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseWholeReserves"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "flight_id",
+            "description": "flight id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "seat_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "transaction_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "price_op",
+            "description": "1 for more than current price '>' | 2 for less than current price '<' | 3 for equal with current price '=' | 4 for more equal '>=' | 5 for less equal '<='",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/booking/add": {
+      "post": {
+        "operationId": "addNewBooking",
+        "responses": {
+          "200": {
+            "description": "add new booking",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseAddBooking"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestAddBooking"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/booking/update": {
+      "post": {
+        "operationId": "updateBooking",
+        "responses": {
+          "200": {
+            "description": "update booking",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseAddBooking"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestUpdateBooking"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/booking/all": {
+      "get": {
+        "operationId": "allBooking",
+        "responses": {
+          "200": {
+            "description": "get all system booking",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseAllBooking"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "for get specified booking info",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "user_id",
+            "description": "user id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "country_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "city_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "package_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "search",
+            "description": "for text search in 'name' and 'email' and 'remarks' fields ",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "status",
+            "description": "1 for pending | 2 for accepted | 3 for rejected",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "price",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "price_op",
+            "description": "1 for more than current price '>' | 2 for less than current price '<' | 3 for equal with current price '=' | 4 for more equal '>=' | 5 for less equal '<='",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/booking/delete/{id}": {
+      "post": {
+        "operationId": "deleteBooking",
+        "responses": {
+          "200": {
+            "description": "current booking deleted successfully",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "id",
+            "description": "id must exists in bookings table and in ids field",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/guest/cities": {
+      "get": {
+        "operationId": "allCities",
+        "responses": {
+          "200": {
+            "description": "get all system cities",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseAllCities"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "country_id",
+            "description": "country id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "state_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "city_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "search",
+            "description": "for text search in cities 'name' field ",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/guest/states": {
+      "get": {
+        "operationId": "allStates",
+        "responses": {
+          "200": {
+            "description": "get all system states",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseAllStates"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "country_id",
+            "description": "country id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "state_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "search",
+            "description": "for text search in states 'name' field ",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/packages/add": {
+      "post": {
+        "operationId": "addNewPackage",
+        "responses": {
+          "200": {
+            "description": "add new package",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseAddPackage"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestAddPackage"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/packages/update": {
+      "post": {
+        "operationId": "updatePackage",
+        "responses": {
+          "200": {
+            "description": "package updated successfully!",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseAddPackage"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestUpdatePackage"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/packages/delete/{id}": {
+      "post": {
+        "operationId": "deletePackage",
+        "responses": {
+          "200": {
+            "description": "current package deleted successfully",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "id",
+            "description": "id must exists in packages table and in ids field",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/admin/dashboard": {
+      "post": {
+        "operationId": "getDashboardStatistics",
+        "responses": {
+          "200": {
+            "description": "dashboard statistics",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseDashboard"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "description": "just admimn and agent can use this service",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "days",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/admin/user/change-password": {
+      "post": {
+        "operationId": "changeUserPasswordFromAdmin",
+        "responses": {
+          "200": {
+            "description": "new password",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestChangePasswordInAdmin"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/auth/send-forget-pass-email": {
+      "get": {
+        "operationId": "sendEmailForResetPass",
+        "responses": {
+          "200": {
+            "description": "email sended successfully",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/auth/change-password/{encryptUSerId}": {
+      "post": {
+        "operationId": "changePasswordInForgetPassword",
+        "responses": {
+          "200": {
+            "description": "password updated successfully",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestResetPassword"
+            }
+          },
+          {
+            "name": "encryptUSerId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/auth/send-email-verification-link": {
+      "get": {
+        "operationId": "sendVerificationEmailLink",
+        "responses": {
+          "200": {
+            "description": "verification email sended successfully",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/auth/verification-email/{emailVerifyToken}": {
+      "get": {
+        "operationId": "verifyEmail",
+        "responses": {
+          "200": {
+            "description": "your email address verified",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "emailVerifyToken",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/airlines/all": {
+      "get": {
+        "operationId": "allAirlines",
+        "responses": {
+          "200": {
+            "description": "get all airlines",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseAllAirlines"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "description": "for get specified airline info",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "type",
+            "description": "if set all pagination data replace with all of system data about this subject",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "country_id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "creator",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "rate",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/airlines/add": {
+      "post": {
+        "operationId": "addNewAirline",
+        "responses": {
+          "200": {
+            "description": "add new airline",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestAddAirline"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/airlines/update": {
+      "post": {
+        "operationId": "updtaeAirline",
+        "responses": {
+          "200": {
+            "description": "current airline updated successfully",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AlzuhudRequestUpdateAirline"
+            }
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/airlines/delete/{id}": {
+      "get": {
+        "operationId": "deleteAirline",
+        "responses": {
+          "200": {
+            "description": "current airline deleted successfully",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "id",
+            "description": "id must exists in airlines table and in ids field",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    },
+    "/api/pdf/booking/{id}": {
+      "get": {
+        "operationId": "generateBookingPdf",
+        "responses": {
+          "200": {
+            "description": "download booking pdf",
+            "schema": {
+              "$ref": "#/definitions/AlzuhudResponseVoid"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "token",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "format": "string"
+          },
+          {
+            "name": "id",
+            "description": "id must exists in booking table and in ids field",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "integer"
+          }
+        ],
+        "tags": [
+          "Alzuhud"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "AlzuhudRequestLogin": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "NOTE: Doesn't need authorization"
+    },
+    "AlzuhudRequestRegister": {
+      "type": "object",
+      "properties": {
+        "full_name": {
+          "type": "string",
+          "format": "string",
+          "description": "required field max length is 50 "
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "required must be valid email address unique value and max length is 80 and min is 5"
+        },
+        "phone": {
+          "type": "string",
+          "description": "required and unique value and max length is 20"
+        },
+        "address": {
+          "type": "string",
+          "description": "optional and max length 225"
+        },
+        "country_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "optional but max exists in countries table ids"
+        },
+        "state_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "optional but max exists in states table ids"
+        },
+        "city_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "optional but max exists in cities table ids"
+        },
+        "password": {
+          "type": "string",
+          "description": "required min length is 8 and max is 30"
+        },
+        "password_confirmation": {
+          "description": "must match with password field",
+          "type": "string"
+        },
+        "status": {
+          "description": "optional and default value for this field is 1 values(1 active - 2 inactive - 3 removed - 4 banned)",
+          "type": "integer",
+          "format": "int32"
+        },
+        "role": {
+          "description": "optional and default value for this field is 5 values(0,1 for super admin - 2 for agent - 5 for user)",
+          "type": "integer",
+          "format": "int32"
+        },
+        "postal_code": {
+          "type": "string",
+          "format": "string",
+          "description": "optional field max length is 100 "
+        }
+      },
+      "title": "NOTE: Doesn't need authorization"
+    },
+    "AlzuhudRequestAddUser": {
+      "type": "object",
+      "properties": {
+        "full_name": {
+          "type": "string",
+          "description": "required field max length is 50 "
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "required must be valid email address unique value and max length is 80 and min is 5"
+        },
+        "phone": {
+          "type": "string",
+          "description": "required and unique value and max length is 20"
+        },
+        "address": {
+          "type": "string",
+          "description": "optional and max length 225"
+        },
+        "country_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "optional but max exists in countries table ids"
+        },
+        "state_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "optional but max exists in states table ids"
+        },
+        "city_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "optional but max exists in cities table ids"
+        },
+        "password": {
+          "type": "string",
+          "description": "required min length is 8 and max is 30"
+        },
+        "status": {
+          "description": "optional default value for this field is 1 values(1 active - 2 inactive - 3 removed - 4 banned)",
+          "type": "integer",
+          "format": "int32"
+        },
+        "role": {
+          "description": "optional default value for this field is 5 values(0,1 for super admin - 2 for agent - 5 for user)",
+          "type": "integer",
+          "format": "int32"
+        },
+        "postal_code": {
+          "type": "string",
+          "format": "string",
+          "description": "optional field max length is 100 "
+        }
+      },
+      "title": "NOTE: need authorization"
+    },
+    "AlzuhudRequestAddBooking": {
+      "type": "object",
+      "properties": {
+        "country_id": {
+          "type": "integer",
+          "description": "required value must exists in countries table "
+        },
+        "package_id": {
+          "type": "integer",
+          "description": "required value must exists in packages table "
+        },
+        "total_price": {
+          "type": "integer",
+          "description": "required and numeric value and max is 99999999999 "
+        },
+        "name": {
+          "type": "string",
+          "description": "required and max length is 100 "
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "required must be valid email address and max length is 255 and min is 5"
+        },
+        "phone": {
+          "type": "string",
+          "description": "optional and max length is 30"
+        },
+        "region": {
+          "type": "string",
+          "description": "optional and max length is 50"
+        },
+        "num_childs": {
+          "type": "integer",
+          "format": "int32",
+          "description": "required and numeric"
+        },
+        "num_adults": {
+          "type": "integer",
+          "format": "int32",
+          "description": "required and numeric but default is 2"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "optional max is 10000"
+        },
+        "adults": {
+          "type": "object",
+          "properties": {
+            "full_name": {
+              "type": "string",
+              "description": "required"
+            },
+            "gender": {
+              "type": "integer",
+              "description": "required 1 for male - 2 female - 3 other"
+            },
+            "birth_date": {
+              "type": "string",
+              "format": "date",
+              "description": "required"
+            },
+            "passport_img_url": {
+              "type": "string",
+              "description": "optional"
+            },
+            "passport_img_b64": {
+              "type": "string",
+              "description": "required and send image in base64 format"
+            }
+          }
+        },
+        "childs": {
+          "type": "object",
+          "properties": {
+            "full_name": {
+              "type": "string",
+              "description": "required"
+            },
+            "gender": {
+              "type": "integer",
+              "description": "required 1 for male - 2 female - 3 other"
+            },
+            "birth_date": {
+              "type": "string",
+              "format": "date",
+              "description": "required"
+            },
+            "passport_img_url": {
+              "type": "string",
+              "description": "optional"
+            },
+            "passport_img_b64": {
+              "type": "string",
+              "description": "required and send image in base64 format"
+            }
+          }
+        },
+        "num_nights": {
+          "type": "integer",
+          "description": "optional default value 1"
+        }
+      },
+      "title": "NOTE: need authorization"
+    },
+    "AlzuhudRequestUpdateBooking": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "required value must exists in bookings table "
+        },
+        "country_id": {
+          "type": "integer",
+          "description": "optional value must exists in countries table "
+        },
+        "package_id": {
+          "type": "integer",
+          "description": "optional value must exists in packages table "
+        },
+        "total_price": {
+          "type": "integer",
+          "description": "optional and numeric value and max is 99999999999 "
+        },
+        "name": {
+          "type": "string",
+          "description": "optional and max length is 100 "
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "optional must be valid email address and max length is 255 and min is 5"
+        },
+        "phone": {
+          "type": "string",
+          "description": "optional and max length is 30"
+        },
+        "region": {
+          "type": "string",
+          "description": "optional and max length is 50"
+        },
+        "num_childs": {
+          "type": "integer",
+          "format": "int32",
+          "description": "optional and numeric"
+        },
+        "num_adults": {
+          "type": "integer",
+          "format": "int32",
+          "description": "optional and numeric but default is 2"
+        },
+        "remarks": {
+          "type": "string",
+          "description": "optional max is 10000"
+        },
+        "adults": {
+          "type": "object",
+          "properties": {
+            "full_name": {
+              "type": "string",
+              "description": "required"
+            },
+            "gender": {
+              "type": "integer",
+              "description": "required 1 for male - 2 female - 3 other"
+            },
+            "birth_date": {
+              "type": "string",
+              "format": "date",
+              "description": "required"
+            },
+            "passport_img_url": {
+              "type": "string",
+              "description": "optional"
+            },
+            "passport_img_b64": {
+              "type": "string",
+              "description": "required and send image in base64 format"
+            }
+          }
+        },
+        "childs": {
+          "type": "object",
+          "properties": {
+            "full_name": {
+              "type": "string",
+              "description": "required"
+            },
+            "gender": {
+              "type": "integer",
+              "description": "required 1 for male - 2 female - 3 other"
+            },
+            "birth_date": {
+              "type": "string",
+              "format": "date",
+              "description": "required"
+            },
+            "passport_img_url": {
+              "type": "string",
+              "description": "optional"
+            },
+            "passport_img_b64": {
+              "type": "string",
+              "description": "required and send image in base64 format"
+            }
+          }
+        },
+        "num_nights": {
+          "type": "integer",
+          "description": "optional default value 1"
+        }
+      },
+      "title": "NOTE: need authorization"
+    },
+    "AlzuhudRequestAddFlight": {
+      "type": "object",
+      "properties": {
+        "origin_id": {
+          "type": "integer",
+          "description": "required | value must exists in countries table "
+        },
+        "name": {
+          "type": "string",
+          "description": "required | max length is 100"
+        },
+        "logo_base64": {
+          "type": "string",
+          "description": "required | image base64 format"
+        },
+        "rate_avg": {
+          "type": "string",
+          "description": "required | numric | max number is 6 or between:1,6"
+        }
+      }
+    },
+    "AlzuhudRequestAddFlightInformation": {
+      "type": "object",
+      "properties": {
+        "airline_id": {
+          "type": "integer",
+          "description": "required | value must exists in airlines table "
+        },
+        "origin_id": {
+          "type": "integer",
+          "description": "required | value must exists in countries table "
+        },
+        "takeoff_date": {
+          "type": "string",
+          "description": "required | date format is: Y-m-d H:i:s"
+        },
+        "return_date": {
+          "type": "string",
+          "description": "required | date format is: Y-m-d H:i:s"
+        },
+        "price": {
+          "type": "string",
+          "description": "required | numeric | max is 9999999999"
+        },
+        "seat_availability": {
+          "type": "string",
+          "description": "required | numeric"
+        }
+      }
+    },
+    "AlzuhudRequestUpdateFlightInformation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "required | value must exists in flights table "
+        },
+        "airline_id": {
+          "type": "integer",
+          "description": "optional | value must exists in airlines table "
+        },
+        "origin_id": {
+          "type": "integer",
+          "description": "optional | value must exists in countries table "
+        },
+        "takeoff_date": {
+          "type": "string",
+          "description": "optional | date format is: Y-m-d H:i:s"
+        },
+        "return_date": {
+          "type": "string",
+          "description": "optional | date format is: Y-m-d H:i:s"
+        },
+        "price": {
+          "type": "string",
+          "description": "optional | numeric | max is 9999999999"
+        },
+        "seat_availability": {
+          "type": "string",
+          "description": "optional | numeric"
+        }
+      }
+    },
+    "AlzuhudRequestUpdatePackage" : {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "required must exists in packages table and ids field "
+        },
+        "airline_id": {
+          "type": "integer",
+          "description": "optional must exists in flights table and ids field "
+        },
+        "hotel_id": {
+          "type": "integer",
+          "description": "optional must exists in hotels table and ids field "
+        },
+        "name": {
+          "type": "string",
+          "description": "optional and max length is 100 "
+        },
+        "price": {
+          "type": "integer",
+          "description": "optional and numeric value and max is 99999999999 "
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "optional but one value between 0 to 4 and 0 mean deactive and 1 active - 2 banned - 3 expired - 4 removed"
+        },
+        "code": {
+          "type": "string",
+          "format": "string",
+          "description": "optional custom code you can add the current package"
+        },
+        "rate": {
+          "type": "integer",
+          "format": "int32",
+          "description": "optional default 0 value between 0 and 6"
+        },
+        "start_date": {
+          "type": "string",
+          "format": "date",
+          "description": "optional must have 'Y-m-d H:i:s' format "
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date",
+          "description": "optional must have 'Y-m-d H:i:s' format "
+        }
+      },
+      "title": "NOTE: need authorization"
+    },
+    "AlzuhudRequestAddPackage": {
+      "type": "object",
+      "properties": {
+        "airline_id": {
+          "type": "integer",
+          "description": "required must exists in flights tables and ids field "
+        },
+        "hotel_id": {
+          "type": "integer",
+          "description": "required must exists in hotels tables and ids field "
+        },
+        "name": {
+          "type": "string",
+          "description": "required and max length is 100 "
+        },
+        "price": {
+          "type": "integer",
+          "description": "required and numeric value and max is 99999999999 "
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "description": "optional but one value between 0 to 4 and 0 mean deactive and 1 active - 2 banned - 3 expired - 4 removed"
+        },
+        "code": {
+          "type": "string",
+          "format": "string",
+          "description": "optional custom code you can add the current package"
+        },
+        "rate": {
+          "type": "integer",
+          "format": "int32",
+          "description": "optional default 0 value between 0 and 6"
+        },
+        "start_date": {
+          "type": "string",
+          "format": "date",
+          "description": "optional must have 'Y-m-d H:i:s' format "
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date",
+          "description": "optional must have 'Y-m-d H:i:s' format "
+        }
+      },
+      "title": "NOTE: need authorization"
+    },
+    "AlzuhudRequestAddHotel": {
+      "type": "object",
+      "properties": {
+        "en_name": {
+          "type": "string",
+          "description": "required and max length is 100"
+        },
+        "name": {
+          "type": "string",
+          "description": "optional and max length is 100"
+        },
+        "description": {
+          "type": "string",
+          "description": "optional and max length is 10000"
+        },
+        "address": {
+          "type": "string",
+          "description": "optional and max length is 100"
+        },
+        "lat": {
+          "type": "string",
+          "description": "optional and max length is 50"
+        },
+        "lng": {
+          "type": "string",
+          "description": "optional and max length is 50"
+        },
+        "accomodation": {
+          "type": "string",
+          "description": "optional and between 1,6 "
+        },
+        "main_image_url": {
+          "type": "string",
+          "description": "optional and max length is 200"
+        },
+        "main_image_base64": {
+          "description": "optional send base64 image format",
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64",
+          "description": "optional and numeric value"
+        },
+        "price_double": {
+          "type": "integer",
+          "format": "int64",
+          "description": "optional and numeric value"
+        },
+        "price_triple": {
+          "type": "integer",
+          "format": "int64",
+          "description": "optional and numeric value"
+        },
+        "price_quad": {
+          "type": "integer",
+          "format": "int64",
+          "description": "optional and numeric value"
+        },
+        "hotel_images": {
+          "type": "array",
+          "description": "optional",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hotel_rooms": {
+          "type": "array",
+          "description": "optional",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "required"
+              },
+              "room_type": {
+                "type": "integer",
+                "format": "int32",
+                "description": "required"
+              },
+              "description": {
+                "type": "string",
+                "description": "optional description about room"
+              },
+              "view": {
+                "type": "string",
+                "description": "optional description about room view"
+              },
+              "extera": {
+                "type": "string",
+                "description": "optional extera info about room"
+              },
+              "main_img_base64": {
+                "type": "string",
+                "description": "optional send base64 image format"
+              },
+              "main_img_url": {
+                "type": "string",
+                "description": "optional"
+              }
+            }
+          }
+        }
+      },
+      "title": "NOTE: need authorization"
+    },
+    "AlzuhudRequestUpdateHotel": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "required and must exists in hotel table and in ids field"
+        },
+        "en_name": {
+          "type": "string",
+          "description": "optional and max length is 100"
+        },
+        "name": {
+          "type": "string",
+          "description": "optional and max length is 100"
+        },
+        "description": {
+          "type": "string",
+          "description": "optional and max length is 10000"
+        },
+        "address": {
+          "type": "string",
+          "description": "optional and max length is 100"
+        },
+        "lat": {
+          "type": "string",
+          "description": "optional and max length is 50"
+        },
+        "lng": {
+          "type": "string",
+          "description": "optional and max length is 50"
+        },
+        "accomodation": {
+          "type": "string",
+          "description": "optional and between 1,6 "
+        },
+        "main_image_url": {
+          "type": "string",
+          "description": "optional and max length is 200"
+        },
+        "main_image_base64": {
+          "description": "optional send base64 image format",
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64",
+          "description": "optional and numeric value"
+        },
+        "price_double": {
+          "type": "integer",
+          "format": "int64",
+          "description": "optional and numeric value"
+        },
+        "price_triple": {
+          "type": "integer",
+          "format": "int64",
+          "description": "optional and numeric value"
+        },
+        "price_quad": {
+          "type": "integer",
+          "format": "int64",
+          "description": "optional and numeric value"
+        },
+        "hotel_images": {
+          "type": "array",
+          "description": "optional",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hotel_rooms": {
+          "type": "array",
+          "description": "optional",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "required"
+              },
+              "room_type": {
+                "type": "integer",
+                "format": "int32",
+                "description": "required"
+              },
+              "description": {
+                "type": "string",
+                "description": "optional description about room"
+              },
+              "view": {
+                "type": "string",
+                "description": "optional description about room view"
+              },
+              "extera": {
+                "type": "string",
+                "description": "optional extera info about room"
+              },
+              "main_img_base64": {
+                "type": "string",
+                "description": "optional send base64 image format"
+              },
+              "main_img_url": {
+                "type": "string",
+                "description": "optional"
+              }
+            }
+          }
+        }
+      },
+      "title": "NOTE: need authorization"
+    },
+    "AlzuhudRequestUpdateUser": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "required"
+        },
+        "full_name": {
+          "type": "string",
+          "description": "optional and max length is 50"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "optional and max length is 80 min is 5 if you send new email the value must be unique"
+        },
+        "phone": {
+          "type": "string",
+          "description": "optional and max length is 20 and if you send new phone the value must be unique"
+        },
+        "address": {
+          "type": "string",
+          "description": "optional and max length 225"
+        },
+        "country_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "optional but max exists in countries table ids"
+        },
+        "state_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "optional but max exists in states table ids"
+        },
+        "city_id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "optional but max exists in cities table ids"
+        },
+        "status": {
+          "description": "optional default value for this field is 1 values(1 active - 2 inactive - 3 removed - 4 banned)",
+          "type": "integer",
+          "format": "int32"
+        },
+        "role": {
+          "description": "optional default value for this field is 5 values(0,1 for super admin - 2 for agent - 5 for user)",
+          "type": "integer",
+          "format": "int32"
+        },
+        "postal_code": {
+          "type": "string",
+          "format": "string",
+          "description": "optional field max length is 100 "
+        },
+        "is_email_verified": {
+          "type": "integer",
+          "format": "int32",
+          "description": "optional between:0,1 and just admin and agent can channge this field value"
+        }
+      },
+      "title": "NOTE: need authorization"
+    },
+    "AlzuhudRequestChangePassword": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "required "
+        },
+        "old_pass": {
+          "type": "string",
+          "description": "required min length is 8 and max is 30"
+        },
+        "password": {
+          "type": "string",
+          "description": "required min length is 8 and max is 30"
+        },
+        "password_confirmation": {
+          "type": "string",
+          "description": "required and must match with password field"
+        }
+      }
+    },
+    "AlzuhudRequestChangePasswordInAdmin": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "required "
+        },
+        "password": {
+          "type": "string",
+          "description": "required min length is 8 and max is 30"
+        },
+        "password_confirmation": {
+          "type": "string",
+          "description": "required and must match with password field"
+        }
+      }
+    },
+    "AlzuhudRequestAddTicket": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "string",
+          "description": "required and max length is 150000"
+        },
+        "subject": {
+          "type": "string",
+          "description": "required and max length is 30"
+        },
+        "ticket_img": {
+          "type": "string",
+          "description": "optional and send base64 image format"
+        }
+      }
+    },
+    "AlzuhudRequestAnswerTicket": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "string",
+          "description": "required and max length is 150000"
+        },
+        "ticket_img": {
+          "type": "string",
+          "description": "optional and send base64 image format"
+        }
+      }
+    },
+    "AlzuhudRequestAddContact": {
+      "type": "object",
+      "properties": {
+        "subject": {
+          "type": "string",
+          "description": "required and max length is 50"
+        },
+        "message": {
+          "type": "string",
+          "description": "required and max length is 150000"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "optional and max length is 200 and must be a valid email address"
+        },
+        "name": {
+          "type": "string",
+          "description": "optional and max length is 50"
+        }
+      }
+    },
+    "AlzuhudRequestResetPassword": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string",
+          "description": "required and max length between:8,30"
+        },
+        "password_confirmation": {
+          "type": "string",
+          "description": "required and max length between:8,30 must equal to password value"
+        }
+      }
+    },
+    "AlzuhudRequestAddAirline": {
+      "type": "object",
+      "properties": {
+        "country_id": {
+          "type": "integer",
+          "description": "required must exists in countries and in ids"
+        },
+        "name": {
+          "type": "string",
+          "description": "required max length is 100"
+        },
+        "logo_base64": {
+          "type": "string",
+          "description": "optional base64 image"
+        },
+        "rate_avg": {
+          "type": "integer",
+          "description": "required value between:1,5"
+        }
+      }
+    },
+    "AlzuhudRequestUpdateAirline": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "required must exists in airlines and in ids"
+        },
+        "country_id": {
+          "type": "integer",
+          "description": "optional must exists in countries and in ids"
+        },
+        "name": {
+          "type": "string",
+          "description": "optional max length is 100"
+        },
+        "logo_base64": {
+          "type": "string",
+          "description": "optional base64 image"
+        },
+        "rate_avg": {
+          "type": "integer",
+          "description": "optional value between:1,5"
+        }
+      }
+    },
+    "AlzuhudResponseVoid": {
+      "type": "object"
+    },
+    "AlzuhudResponseContacts": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "user_id": {
+                "type": "object",
+                "items": {
+                  "$ref": "#/definitions/UserObjectDefintion"
+                }
+              },
+              "subject": {
+                "type": "string",
+                "format": "string"
+              },
+              "body": {
+                "type": "string",
+                "format": "string"
+              },
+              "status": {
+                "type": "string",
+                "format": "string"
+              },
+              "ticket_img": {
+                "type": "string",
+                "format": "base64"
+              },
+              "ticket_img_url": {
+                "type": "string",
+                "format": "url"
+              },
+              "time_ago": {
+                "type": "string",
+                "format": "string"
+              },
+              "human_created_at": {
+                "type": "string",
+                "format": "string"
+              }
+            }
+          }
+        },
+        "first_page_url": {
+          "type": "string",
+          "format": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "next_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "path": {
+          "type": "string",
+          "format": "uri"
+        },
+        "per_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prev_page_url": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "UserObjectDefintion": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "full_name": {
+          "type": "string",
+          "format": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "string"
+        },
+        "phone": {
+          "type": "string",
+          "format": "string"
+        },
+        "role": {
+          "type": "string",
+          "format": "string"
+        },
+        "status": {
+          "type": "string",
+          "format": "string"
+        },
+        "email_verified_at": {
+          "type": "string",
+          "format": "timestamp"
+        },
+        "remember_token": {
+          "type": "string",
+          "format": "timestamp"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "string"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "timestamp"
+        }
+      }
+    },
+    "AlzuhudResponseAllUsers": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserObjectDefintion"
+          }
+        },
+        "first_page_url": {
+          "type": "string",
+          "format": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "next_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "path": {
+          "type": "string",
+          "format": "uri"
+        },
+        "per_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prev_page_url": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ReferenceAllTicketsArray": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "$ref": "#/definitions/UserObjectDefintion"
+        },
+        "subject": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "ticket_img": {
+          "type": "string"
+        },
+        "ticket_img_url": {
+          "type": "string"
+        }
+      }
+    },
+    "AlzuhudResponseAllTickets": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReferenceAllTicketsArray"
+          }
+        },
+        "first_page_url": {
+          "type": "string",
+          "format": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "next_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "path": {
+          "type": "string",
+          "format": "uri"
+        },
+        "per_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prev_page_url": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ReferenceAllTicketSectionsArray": {
+      "type": "object",
+      "properties": {
+        "ticket_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_id": {
+          "$ref": "#/definitions/UserObjectDefintion"
+        },
+        "body": {
+          "type": "string"
+        },
+        "user_role": {
+          "type": "string"
+        },
+        "ticket_img": {
+          "type": "string"
+        },
+        "ticket_img_url": {
+          "type": "string"
+        }
+      }
+    },
+    "AlzuhudResponseTicketSections": {
+      "type": "object",
+      "properties": {
+        "ticket": {
+          "type": "object",
+          "properties": {
+            "user_id": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/UserObjectDefintion"
+              }
+            },
+            "subject": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            },
+            "ticket_img": {
+              "type": "string"
+            },
+            "ticket_img_url": {
+              "type": "string"
+            }
+          }
+        },
+        "sections": {
+          "type": "object",
+          "properties": {
+            "current_page": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "data": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ReferenceAllTicketSectionsArray"
+              }
+            },
+            "first_page_url": {
+              "type": "string",
+              "format": "string"
+            },
+            "from": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "last_page": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "last_page_url": {
+              "type": "string",
+              "format": "url"
+            },
+            "next_page_url": {
+              "type": "string",
+              "format": "url"
+            },
+            "path": {
+              "type": "string",
+              "format": "uri"
+            },
+            "per_page": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "prev_page_url": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "to": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "total": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        }
+      }
+    },
+    "AlzuhudResponseAuth": {
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "type": "string"
+        },
+        "token_type": {
+          "type": "string"
+        },
+        "expires_in": {
+          "type": "string"
+        },
+        "user": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/UserObjectDefintion"
+          }
+        }
+      }
+    },
+    "ReferenceAllNotificationsArray": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "notified_by": {
+          "$ref": "#/definitions/UserObjectDefintion"
+        },
+        "owner_id": {
+          "$ref": "#/definitions/UserObjectDefintion"
+        },
+        "seen": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "extera": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "time_ago": {
+          "type": "string"
+        },
+        "human_created_at": {
+          "type": "string"
+        }
+      }
+    },
+    "AlzuhudResponseNotifications": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReferenceAllNotificationsArray"
+          }
+        },
+        "first_page_url": {
+          "type": "string",
+          "format": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "next_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "path": {
+          "type": "string",
+          "format": "uri"
+        },
+        "per_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prev_page_url": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ReferenceAllPackagesArray": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "creator": {
+          "$ref": "#/definitions/UserObjectDefintion"
+        },
+        "airline_id": {
+          "$ref": "#/definitions/ReferenceAllFlightsArray"
+        },
+        "hotel_id": {
+          "$ref": "#/definitions/HotelObjectDefintion"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "start_date": {
+          "type": "string"
+        },
+        "end_date": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "time_ago": {
+          "type": "string"
+        },
+        "human_created_at": {
+          "type": "string"
+        }
+      }
+    },
+    "AlzuhudResponsePackages": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReferenceAllPackagesArray"
+          }
+        },
+        "first_page_url": {
+          "type": "string",
+          "format": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "next_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "path": {
+          "type": "string",
+          "format": "uri"
+        },
+        "per_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prev_page_url": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ReferenceAllCountriesArray": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "sortname": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "phonecode": {
+          "type": "integer"
+        },
+        "nicename": {
+          "type": "string"
+        },
+        "iso3": {
+          "type": "string"
+        },
+        "numcode": {
+          "type": "integer"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      }
+    },
+    "ReferenceAllCitiesArray": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "sortname": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "phonecode": {
+          "type": "integer"
+        },
+        "nicename": {
+          "type": "string"
+        }
+      }
+    },
+    "AlzuhudResponseCountries": {
+      "type": "object",
+      "properties": {
+        "res": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReferenceAllCountriesArray"
+          }
+        }
+      }
+    },
+    "PackageObjectDefintion": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "creator": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/UserObjectDefintion"
+          }
+        },
+        "airline_id": {
+          "type": "integer"
+        },
+        "hotel_id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "integer"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "start_date": {
+          "type": "string"
+        },
+        "end_date": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "time_ago": {
+          "type": "string"
+        },
+        "human_created_at": {
+          "type": "string"
+        }
+      }
+    },
+    "HotelObjectDefintion": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "creator": {
+          "type": "object",
+          "items": {
+            "$ref": "#/definitions/UserObjectDefintion"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "string"
+        },
+        "lng": {
+          "type": "string"
+        },
+        "accomodation": {
+          "type": "string"
+        },
+        "main_image_base64": {
+          "type": "string"
+        },
+        "main_image_url": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "time_ago": {
+          "type": "string"
+        },
+        "human_created_at": {
+          "type": "string"
+        }
+      }
+    },
+    "ReferenceAllTransactionsArray": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_id": {
+          "$ref": "#/definitions/UserObjectDefintion"
+        },
+        "package_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "booking_id": {
+          "$ref": "#/definitions/ReferenceAllBookingArray"
+        },
+        "title": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "ref": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "time_ago": {
+          "type": "string"
+        },
+        "human_created_at": {
+          "type": "string"
+        }
+      }
+    },
+    "AlzuhudResponseTransactions": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReferenceAllTransactionsArray"
+          }
+        },
+        "first_page_url": {
+          "type": "string",
+          "format": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "next_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "path": {
+          "type": "string",
+          "format": "uri"
+        },
+        "per_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prev_page_url": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ReferenceAllBookingArray": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_id": {
+          "$ref": "#/definitions/UserObjectDefintion"
+        },
+        "country_id": {
+          "$ref": "#/definitions/ReferenceAllCountriesArray"
+        },
+        "city_id": {
+          "$ref": "#/definitions/ReferenceAllCitiesArray"
+        },
+        "package_id": {
+          "$ref": "#/definitions/ReferenceAllPackagesArray"
+        },
+        "total_price": {
+          "type": "string",
+          "format": "string"
+        },
+        "name": {
+          "type": "string",
+          "format": "string"
+        },
+        "email": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "phone": {
+          "type": "string",
+          "format": "string"
+        },
+        "region": {
+          "type": "string",
+          "format": "string"
+        },
+        "num_childs": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "num_adults": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "remarks": {
+          "type": "string",
+          "format": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "passengers": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "booking_id": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "full_name": {
+              "type": "string",
+              "format": "string"
+            },
+            "gender": {
+              "type": "string",
+              "format": "string"
+            },
+            "birth_date": {
+              "type": "string",
+              "format": "date"
+            },
+            "passenger_type": {
+              "type": "string",
+              "format": "string"
+            },
+            "passport_img_url": {
+              "type": "string",
+              "format": "string"
+            },
+            "passport_img_b64": {
+              "type": "string",
+              "format": "string"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date"
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date"
+            },
+            "time_ago": {
+              "type": "string",
+              "format": "string"
+            },
+            "human_created_at": {
+              "type": "string",
+              "format": "string"
+            }
+          }
+        }
+      }
+    },
+    "AlzuhudResponseAllBooking": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReferenceAllBookingArray"
+          }
+        },
+        "first_page_url": {
+          "type": "string",
+          "format": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "next_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "path": {
+          "type": "string",
+          "format": "uri"
+        },
+        "per_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prev_page_url": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ReferenceAllHotelsArray": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "creator": {
+          "$ref": "#/definitions/UserObjectDefintion"
+        },
+        "en_name": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "string"
+        },
+        "lng": {
+          "type": "string"
+        },
+        "accomodation": {
+          "type": "string"
+        },
+        "main_image_base64": {
+          "type": "string"
+        },
+        "main_image_url": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "price_double": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "price_triple": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "price_quad": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "time_ago": {
+          "type": "string"
+        },
+        "human_created_at": {
+          "type": "string"
+        }
+      }
+    },
+    "AlzuhudResponseHotels": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReferenceAllHotelsArray"
+          }
+        },
+        "first_page_url": {
+          "type": "string",
+          "format": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "next_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "path": {
+          "type": "string",
+          "format": "uri"
+        },
+        "per_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prev_page_url": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ReferenceAllHotelRoomReservesArray": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "hotel_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "room_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "transaction_id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "description": {
+          "type": "string"
+        },
+        "extera": {
+          "type": "string"
+        },
+        "final_price": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "AlzuhudResponseWholeHotelRoomReserves": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReferenceAllHotelRoomReservesArray"
+          }
+        },
+        "first_page_url": {
+          "type": "string",
+          "format": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "next_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "path": {
+          "type": "string",
+          "format": "uri"
+        },
+        "per_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prev_page_url": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "AlzuhudResponseAllHotelRooms": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReferenceHotelRoomsArray"
+          }
+        },
+        "first_page_url": {
+          "type": "string",
+          "format": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "next_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "path": {
+          "type": "string",
+          "format": "uri"
+        },
+        "per_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prev_page_url": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ReferenceHotelImagesArray": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "hotel_id": {
+          "$ref": "#/definitions/HotelObjectDefintion"
+        },
+        "img_base64": {
+          "type": "string"
+        },
+        "img_url": {
+          "type": "integer"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "time_ago": {
+          "type": "string"
+        },
+        "human_created_at": {
+          "type": "string"
+        }
+      }
+    },
+    "AlzuhudResponseHotelImages": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReferenceHotelImagesArray"
+          }
+        },
+        "first_page_url": {
+          "type": "string",
+          "format": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "next_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "path": {
+          "type": "string",
+          "format": "uri"
+        },
+        "per_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prev_page_url": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ReferenceHotelRoomsArray": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "hotel_id": {
+          "$ref": "#/definitions/HotelObjectDefintion"
+        },
+        "name": {
+          "type": "string"
+        },
+        "room_type": {
+          "type": "integer"
+        },
+        "description": {
+          "type": "string"
+        },
+        "view": {
+          "type": "string"
+        },
+        "extera": {
+          "type": "string"
+        },
+        "main_image_base64": {
+          "type": "string"
+        },
+        "main_image_url": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "time_ago": {
+          "type": "string"
+        },
+        "human_created_at": {
+          "type": "string"
+        }
+      }
+    },
+    "AlzuhudResponseHotelRooms": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReferenceHotelRoomsArray"
+          }
+        },
+        "first_page_url": {
+          "type": "string",
+          "format": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "next_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "path": {
+          "type": "string",
+          "format": "uri"
+        },
+        "per_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prev_page_url": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ReferenceAllFlightsArray": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "airline_id": {
+          "$ref": "#/definitions/ReferenceAirlineObject"
+        },
+        "creator": {
+          "type": "integer"
+        },
+        "origin_id": {
+          "type": "integer"
+        },
+        "destination_id": {
+          "type": "integer"
+        },
+        "origin_name": {
+          "type": "string"
+        },
+        "destination_name": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "logo_base64": {
+          "type": "string"
+        },
+        "logo_url": {
+          "type": "string"
+        },
+        "takeoff_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "reach_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "price": {
+          "type": "integer"
+        },
+        "rate_avg": {
+          "type": "integer"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "time_ago": {
+          "type": "string"
+        },
+        "human_created_at": {
+          "type": "string"
+        },
+        "takeoff_time": {
+          "type": "string"
+        },
+        "reach_time": {
+          "type": "string"
+        }
+      }
+    },
+    "AlzuhudResponseFlights": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReferenceAllFlightsArray"
+          }
+        },
+        "first_page_url": {
+          "type": "string",
+          "format": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "next_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "path": {
+          "type": "string",
+          "format": "uri"
+        },
+        "per_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prev_page_url": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "AlzuhudResponseFlightSeats": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "flight": {
+          "$ref": "#/definitions/ReferenceAllFlightsArray"
+        },
+        "seat_number": {
+          "type": "integer"
+        },
+        "seat_position": {
+          "type": "integer"
+        },
+        "seat_row": {
+          "type": "integer"
+        },
+        "seat_code": {
+          "type": "integer"
+        },
+        "seat_ext_price": {
+          "type": "integer"
+        },
+        "description": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "time_ago": {
+          "type": "string"
+        },
+        "human_created_at": {
+          "type": "string"
+        }
+      }
+    },
+    "AlzuhudResponseFlightSeatReserves": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "flight_id": {
+          "$ref": "#/definitions/ReferenceAllFlightsArray"
+        },
+        "seat_id": {
+          "$ref": "#/definitions/AlzuhudResponseFlightSeats"
+        },
+        "user_id": {
+          "$ref": "#/definitions/UserObjectDefintion"
+        },
+        "transaction_id": {
+          "$ref": "#/definitions/ReferenceAllTransactionsArray"
+        },
+        "description": {
+          "type": "string"
+        },
+        "extera": {
+          "type": "string"
+        },
+        "final_price": {
+          "type": "integer"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "time_ago": {
+          "type": "string"
+        },
+        "human_created_at": {
+          "type": "string"
+        }
+      }
+    },
+    "AlzuhudResponseWholeSeats": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AlzuhudResponseFlightSeats"
+          }
+        },
+        "first_page_url": {
+          "type": "string",
+          "format": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "next_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "path": {
+          "type": "string",
+          "format": "uri"
+        },
+        "per_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prev_page_url": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "AlzuhudResponseWholeReserves": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AlzuhudResponseFlightSeatReserves"
+          }
+        },
+        "first_page_url": {
+          "type": "string",
+          "format": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "next_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "path": {
+          "type": "string",
+          "format": "uri"
+        },
+        "per_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prev_page_url": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "AlzuhudResponseAllCities": {
+      "type": "object",
+      "properties": {
+        "cityId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "cityName": {
+          "type": "string",
+          "format": "string"
+        }
+      }
+    },
+    "AlzuhudResponseAllStates": {
+      "type": "object",
+      "properties": {
+        "stateId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "stateName": {
+          "type": "string",
+          "format": "string"
+        }
+      }
+    },
+    "AlzuhudResponseDashboard": {
+      "type": "object",
+      "properties": {
+        "res": {
+          "type": "object",
+          "properties": {
+            "tickets": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "orders": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "transactions": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "agents": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "users": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "packages": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        }
+      }
+    },
+    "ReferenceAirlineObject": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "creator": {
+          "$ref" : "#/definitions/UserObjectDefintion"
+        },
+        "country_id": {
+          "$ref" : "#/definitions/ReferenceAllCountriesArray"
+        },
+        "name": {
+          "type": "string",
+          "format": "string"
+        },
+        "logo_base64": {
+          "type": "string",
+          "format": "string"
+        },
+        "logo_url": {
+          "type": "string",
+          "format": "string"
+        },
+        "rate_avg": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "time_ago": {
+          "type": "string",
+          "format": "string"
+        },
+        "human_created_at": {
+          "type": "string",
+          "format": "string"
+        }
+      }
+    },
+    "AlzuhudResponseAllAirlines": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ReferenceAirlineObject"
+          }
+        },
+        "first_page_url": {
+          "type": "string",
+          "format": "string"
+        },
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "last_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "next_page_url": {
+          "type": "string",
+          "format": "url"
+        },
+        "path": {
+          "type": "string",
+          "format": "uri"
+        },
+        "per_page": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "prev_page_url": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "to": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "AlzuhudResponseAddBooking": {
+      "type": "object",
+      "properties": {
+        "res": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "description": "created booking id"
+        }
+      }
+    },
+    "AlzuhudResponseAddPackage": {
+      "type": "object",
+      "properties": {
+        "res": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "description": "created package id"
+        }
+      }
+    }
+  }
+}
